@@ -2,7 +2,7 @@
   import Body from "@/assets/access-denied/body.png";
   import Head from "@/assets/access-denied/head.png";
   import Hand from "@/assets/access-denied/hand.png";
-  import Sound from "@/assets/access-denied/ahahah.mp3";
+  import { play, stop } from '@/services/sound';
 
   let dialog: HTMLDialogElement;
   const context = new AudioContext();
@@ -13,7 +13,7 @@
             'click',
             e=>{
                 const target = (e.target as HTMLElement).closest('a, input[type="button"], input[type="submit"], button');
-                if (!target) return;
+                if (!target || target.closest('[data-interactive]')) return;
                 e.preventDefault();
                 show();
             },
@@ -22,18 +22,10 @@
 
   export async function show(){
     if (!dialog) return;
-    const audio = new Audio(Sound)
     dialog.showModal();
-    dialog.addEventListener('close', () => audio.pause(), {once: true});
-    audio.addEventListener(
-        'ended',
-        () =>
-        {
-            dialog.close();
-        },
-        { once: true },
-    )
-    audio.play();
+    dialog.addEventListener('close', () => stop('accessDenied'), {once: true});
+    await play('accessDenied');
+    dialog.close();
   }
 </script>
 

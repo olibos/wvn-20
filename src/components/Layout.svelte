@@ -9,6 +9,9 @@
   import LogoBottom2 from "@/images/logo_bottom2.jpg";
   import LogoRtc1 from "@/images/logo-rtc1.gif";
   import logoS3Csanslignes from '@/images/logoS3Csanslignes.jpg';
+
+  import confetti from 'canvas-confetti';
+  window["confetti"] = confetti;
 </script>
 
 <table
@@ -531,6 +534,7 @@
                                         </li>
                                         <li class="TEXTLEVEL1">La formation.</li>
                                       </ul>
+                                      <slot />
                                       <p>
                                         <span class="TEXTLEVEL4">Votre site Internet reflète-t-il l’actualité de votre entreprise?
                                           <br>

@@ -438,6 +438,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/canvas-confetti@npm:^1":
+  version: 1.6.4
+  resolution: "@types/canvas-confetti@npm:1.6.4"
+  checksum: 10c0/4a821690f0b9cdd81b0d02c0946c5b4e9e80f189e868fd8a159884d5eb9da0bdf0bfc380a61c971cc5d7b9ca2521625d46bcb5e4653988375118f57523ebe5a4
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:*, @types/estree@npm:1.0.5, @types/estree@npm:^1.0.0, @types/estree@npm:^1.0.1":
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
@@ -627,6 +634,13 @@ __metadata:
   version: 3.1.0
   resolution: "callsites@npm:3.1.0"
   checksum: 10c0/fff92277400eb06c3079f9e74f3af120db9f8ea03bad0e84d9aede54bbe2d44a56cccb5f6cf12211f93f52306df87077ecec5b712794c5a9b5dac6d615a3f301
+  languageName: node
+  linkType: hard
+
+"canvas-confetti@npm:^1.9.3":
+  version: 1.9.3
+  resolution: "canvas-confetti@npm:1.9.3"
+  checksum: 10c0/94c6f16591660d5ed4a48afb8da65902826ce6b38edc7644d62521aa9bf9ef5b950aa4396e980e7fe0a38e5f41a991a6d984721412a54c9fba4de3682c1eead0
   languageName: node
   linkType: hard
 
@@ -2260,13 +2274,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wvn-40@workspace:.":
+"wvn-20@workspace:.":
   version: 0.0.0-use.local
-  resolution: "wvn-40@workspace:."
+  resolution: "wvn-20@workspace:."
   dependencies:
     "@sveltejs/vite-plugin-svelte": "npm:^3.0.2"
     "@tsconfig/svelte": "npm:^5.0.2"
+    "@types/canvas-confetti": "npm:^1"
     "@types/node": "npm:^20.12.8"
+    canvas-confetti: "npm:^1.9.3"
     postcss-load-config: "npm:^5.1.0"
     sass: "npm:^1.76.0"
     svelte: "npm:^4.2.12"

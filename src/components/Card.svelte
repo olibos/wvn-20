@@ -1,23 +1,13 @@
 <script lang="ts">
-  import Main from "@/styles/Main.svelte";
-  import PortalCss from "@/styles/PortalCss.svelte";
-  import AccessDenied from "./AccessDenied.svelte";
-  import Layout from "./Layout.svelte";
-
   export let flip = false;
 </script>
-<svelte:options customElement="wvn-legacy" />
 
 <div id="card" class:flip={flip}>
   <div id="front">
-    <slot />
+    <slot name="front" />
   </div>
   <div id="back">
-    <AccessDenied />
-    <Layout />
-    <!-- styles -->
-    <Main />
-    <PortalCss />
+    <slot name="back" />
   </div>
 </div>
 

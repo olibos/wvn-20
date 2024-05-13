@@ -2,7 +2,7 @@
 
 <script lang="ts">
   let button: HTMLButtonElement;
-  document.body.style.perspective = "600px";
+  document.body.style.perspective = "600px";  
   function scroll() {
     scrollTo({ top: 0, behavior: "smooth" });
     return new Promise((done) =>
@@ -15,18 +15,16 @@
     button.disabled = true;
     const next = document.getElementById("__next");
     if (started || !next || document.querySelector("wvn-legacy")) return;
-    await import("./Card.svelte");
-    await scroll();
+    await import("../Scene.svelte");
+    if (screenTop) await scroll();
     if (started) return;
     started = true;
 
     const boxSizing = window.getComputedStyle(next).boxSizing;
+    next.style.boxSizing = boxSizing;
     const card = document.createElement("wvn-legacy");
     next.replaceWith(card);
     card.appendChild(next);
-    next.style.boxSizing = boxSizing;
-    await customElements.whenDefined("wvn-legacy");
-    requestIdleCallback(() => (card.flip = true));
   }
 </script>
 
@@ -44,6 +42,10 @@
 
     &:global([disabled]) {
       display: none;
+    }
+
+    &:hover{
+      font-weight: bold;
     }
   }
 </style>

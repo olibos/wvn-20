@@ -1,7 +1,4 @@
-<script context="module">
-	const answer = 42;
-  </script>
-  <style global lang="postcss">
+  <style global>
   /* ================================
     CSS STYLES FOR WaVeNet PORTAL 
     v1.0, 01/2001
