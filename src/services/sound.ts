@@ -1,5 +1,7 @@
 import '@/polyfills/promise-with-resolvers';
 import AccessDenied from "@/assets/access-denied/ahahah.mp3";
+import OkMp3 from "@/assets/sounds/ok.mp3";
+import KoMp3 from "@/assets/sounds/ko.mp3";
 import TimeMachineOpus from "@/assets/sounds/time-machine.opus";
 import TimeMachineOgg from "@/assets/sounds/time-machine.ogg";
 import TimeMachineMp3 from "@/assets/sounds/time-machine.mp3";
@@ -12,6 +14,7 @@ function getAudio(sources: Record<MimeType, string> | string): HTMLAudioElement{
     if (typeof sources === 'string') return new Audio(sources);
 
     const audio = new Audio();
+    audio.crossOrigin = 'anonymous';
     for(const [type, src] of Object.entries(sources)){
         const source = audio.appendChild(document.createElement("source"));
         source.type = type;
@@ -23,6 +26,8 @@ function getAudio(sources: Record<MimeType, string> | string): HTMLAudioElement{
 
 const ressources= {
     accessDenied: getAudio(AccessDenied),
+    ok: getAudio(OkMp3),
+    ko: getAudio(KoMp3),
     timeMachine: getAudio({
         "audio/ogg; codecs=opus": TimeMachineOpus,
         "audio/ogg; codecs=vorbis": TimeMachineOgg,
@@ -30,16 +35,19 @@ const ressources= {
     }),
 }
 
-export function play(sound: keyof typeof ressources): Promise<void>{
+export function play(sound: keyof typeof ressources, signal?: AbortSignal): Promise<void>{
     const { promise, resolve } = Promise.withResolvers<void>();
     const audio = ressources[sound];
     const end = () => {
         audio.removeEventListener('pause', end);
         audio.removeEventListener('ended', end);
+        signal?.removeEventListener('abort', end);
+        audio.pause();
         audio.currentTime = 0;
         resolve();
     }
 
+    signal?.addEventListener('abort', end);
     audio.addEventListener('ended', end);
     audio.addEventListener('pause', end);
     audio.play();

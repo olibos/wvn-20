@@ -11,18 +11,11 @@ export default defineConfig({
       }
     }
   },
-  // experimental: {
-  //   renderBuiltUrl(filename, { hostId, hostType, type }) {
-  //     console.info({filename, hostId, hostType, type})
-  //     if (type === 'public') {
-  //       return 'https://www.domain.com/' + filename
-  //     } else if (extname(hostId) === '.js') {
-  //       return { runtime: `window.__assetsPath(${JSON.stringify(filename)})` }
-  //     } else {
-  //       return 'https://cdn.domain.com/assets/' + filename
-  //     }
-  //   },
-  // },
+  experimental: {
+    renderBuiltUrl(filename) {
+      return `https://20.wavenet.be/${filename.replace('assets/', '')}`;
+    },
+  },
   plugins: [
     tsconfigPaths(),
     svelte({

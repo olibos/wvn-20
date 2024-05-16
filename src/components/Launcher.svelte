@@ -1,6 +1,8 @@
 <svelte:options customElement="wvn-drink" />
 
 <script lang="ts">
+  import { konami } from "@/helpers/konami";
+
   let button: HTMLButtonElement;
   document.body.style.perspective = "600px";  
   function scroll() {
@@ -13,6 +15,12 @@
   let started = false;
   async function start() {
     button.disabled = true;
+    const { signin } = await import("@/services/firebase");
+    if (!await signin()) {
+      button.disabled = false;
+      return;
+    }
+
     const next = document.getElementById("__next");
     if (started || !next || document.querySelector("wvn-legacy")) return;
     await import("../Scene.svelte");
@@ -26,6 +34,8 @@
     next.replaceWith(card);
     card.appendChild(next);
   }
+
+  konami(start);
 </script>
 
 <button on:click={start} bind:this={button}>π</button>

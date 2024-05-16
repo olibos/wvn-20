@@ -39,7 +39,7 @@
   padding-right:5px;
   padding-bottom:25px;
   padding-top:5px;
-  background: #EFF2F6 right url(/LeftMenu.png) repeat-y;
+  background: #EFF2F6 right url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAQCAMAAAAcVM5PAAAAPFBMVEXNUCnT1NbT1dTU1Nbb29nb29vc2tvj4+Hj4+Pk4+Hs7Ozs7O7t7e3u8fbu8fju8/fv8vfv8/bx8vTx8vZ/oi5lAAAALElEQVQIW2MQ4BVkYmHnEmLAymBkRWXwCTCycnAJQxncyAx+QWY2Th4hChkAlZgFwTlP7LAAAAAASUVORK5CYII=) repeat-y;
 }
 
 .CONTENTPANE
@@ -190,11 +190,11 @@ A.aIndexGlossaire:hover {
 
 
 .ombreB{
-  background: #FFFFFF top url(/ombreb.png) repeat-x;
+  background: #FFFFFF top url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAQCAAAAAAZw/FoAAAAJElEQVQIW2P0YGAMZ2DMY2DsYWDczMB4kYHxJQPjDwbG/9gRAA4zDQe+S8xHAAAAAElFTkSuQmCC) repeat-x;
 }
 
 .ombreBlue{
-  background: #C1CADB top url(/ombre-blue.png) repeat-x;
+  background: #C1CADB top url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAQCAIAAACzyjnjAAAACXBIWXMAAC4jAAAuIwF4pT92AAAAOElEQVQI15XJsQ0AIQzFUAf9luQixFSw/zqhoaG8ynqyrb0N5J4Y8khAOSZclSKyCnX/sPfRgF85w4sFllISIkUAAAAASUVORK5CYII=) repeat-x;
 }
 
 .logo-morph{

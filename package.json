@@ -24,6 +24,7 @@
   "packageManager": "yarn@4.2.2",
   "dependencies": {
     "canvas-confetti": "^1.9.3",
+    "firebase": "^10.11.1",
     "postcss-load-config": "^5.1.0",
     "sass": "^1.76.0",
     "vite-tsconfig-paths": "^4.3.2"
