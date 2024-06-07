@@ -1,7 +1,9 @@
 import '@/polyfills/promise-with-resolvers';
 import AccessDenied from "@/assets/access-denied/ahahah.mp3";
 import OkMp3 from "@/assets/sounds/ok.mp3";
+import OkOgg from "@/assets/sounds/ok.ogg";
 import KoMp3 from "@/assets/sounds/ko.mp3";
+import KoOgg from "@/assets/sounds/ko.ogg";
 import TimeMachineOpus from "@/assets/sounds/time-machine.opus";
 import TimeMachineOgg from "@/assets/sounds/time-machine.ogg";
 import TimeMachineMp3 from "@/assets/sounds/time-machine.mp3";
@@ -26,8 +28,14 @@ function getAudio(sources: Record<MimeType, string> | string): HTMLAudioElement{
 
 const ressources= {
     accessDenied: getAudio(AccessDenied),
-    ok: getAudio(OkMp3),
-    ko: getAudio(KoMp3),
+    ok: getAudio({
+        "audio/ogg": OkOgg,
+        "audio/mp3": OkMp3
+    }),
+    ko: getAudio({
+        "audio/ogg": KoOgg,
+        "audio/mp3": KoMp3
+    }),
     timeMachine: getAudio({
         "audio/ogg; codecs=opus": TimeMachineOpus,
         "audio/ogg; codecs=vorbis": TimeMachineOgg,
