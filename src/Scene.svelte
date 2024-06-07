@@ -8,14 +8,12 @@
   import PortalCss from "@/styles/PortalCss.svelte";
   import { play, stop } from "@/services/sound";
   import Olivier from "@/images/olivier.jpg";
-  import Joao from "@/images/joao.jpg";
   import confetti from "canvas-confetti";
   import { isJoining, setJoining } from "./services/firebase";
   import Button from "./components/Button.svelte";
 
   let flip = false;
   document.body.style.perspective = "600px";
-  let canvas: HTMLCanvasElement;
 
   play("timeMachine");
   requestIdleCallback(() => (flip = true));
@@ -105,18 +103,11 @@
             Olivier est développeut .Net. Il vient renforcer l'équipe AFSCA sur le
             projet Sanitel.
           </div>
-          <div class="column">
-            <h2 class="TEXTLEVEL4">Bienvenue à Joao DE OLIVEIRA</h2>
-            <img src={Joao} alt="" />
-
-            Joao est développeut Java. Il rejoint l'équipe Nokia.
-          </div>
         </div>
         <br />
         <h1 class="TD_Module_HeaderA">🥂 Drink 🎉</h1>
         <p class="TEXTLEVEL1">
-          Pour célébrer leur arrivée, ils vous invitent à les rejoindre pour un
-          moment convivial autour d'un verre le xx septembre (2024 😜).<br />
+          Pour célébrer son arrivée, il vous invite à prendre "un" verre le xx septembre (2024 😜).<br />
           
           Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
         </p>
@@ -142,18 +133,27 @@
     min-height: 500px;
   }
 
-  .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .column {
+  .column{
+    width: 50%;
+    margin: 0 auto;
     img {
       display: block;
       max-width: 80%;
       margin: 0 auto;
     }
   }
+  // .row {
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr;
+  // }
+
+  // .column {
+  //   img {
+  //     display: block;
+  //     max-width: 80%;
+  //     margin: 0 auto;
+  //   }
+  // }
 
   .choices{
     text-align: center;

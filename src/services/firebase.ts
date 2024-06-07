@@ -27,11 +27,12 @@ provider.setCustomParameters({
 
 const auth = getAuth();
 
+const testers = ["o.bossaer@wavenet.be", "s.baudart@wavenet.be"];
 export async function signin(){
   await setPersistence(auth, browserSessionPersistence);
-  if (auth.currentUser?.email) return true;
+  if (auth.currentUser?.email) return testers.includes(auth.currentUser.email);
   const user =await signInWithPopup(auth, provider);
-  return !!user?.user.email;
+  return !!user?.user.email && testers.includes(user.user.email);
 }
 
 const db = getFirestore(app);
