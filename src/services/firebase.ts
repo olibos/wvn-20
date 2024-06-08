@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { doc, setDoc, getDoc, getFirestore, type DocumentData, type QueryDocumentSnapshot, type SnapshotOptions } from 'firebase/firestore';
+import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore/lite';
+import type { DocumentData, QueryDocumentSnapshot, SnapshotOptions} from 'firebase/firestore';
 
 import {
     getAuth,

@@ -14,7 +14,7 @@
   let accessDenied: AccessDenied;
 
   const normalize = (value: string) => value.trim().normalize('NFD').replaceAll(/[\u0300-\u036f]/g, '').toLowerCase();
-  const easterEggAllowedValues = new Set(["SVP", "STP", "S'il vous plaît", "S'il te plaît", "Please"].map(normalize));
+  const easterEggAllowedValues = new Set(["SVP", "STP", "S'il vous plaît", "S'il te plaît", "Please", "PLS"].map(normalize));
   const dispatch = createEventDispatcher<{easterEgg: never}>();
 
   function checkEasterEgg(e: SubmitEvent){
