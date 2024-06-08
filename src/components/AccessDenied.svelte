@@ -5,7 +5,6 @@
   import { play, stop } from '@/services/sound';
 
   let dialog: HTMLDialogElement;
-  const context = new AudioContext();
 
   $:{
     dialog?.getRootNode()

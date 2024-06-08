@@ -2,6 +2,7 @@
 
 <script lang="ts">
   import { konami } from "@/helpers/konami";
+  import { setKonami, setVeteran } from "@/services/firebase";
 
   let button: HTMLButtonElement;
   document.body.style.perspective = "600px";  
@@ -13,7 +14,7 @@
   }
 
   let started = false;
-  async function start() {
+  async function start(e?: MouseEvent) {
     button.disabled = true;
     const { signin } = await import("@/services/firebase");
     if (!await signin()) {
@@ -33,6 +34,8 @@
     const card = document.createElement("wvn-legacy");
     next.replaceWith(card);
     card.appendChild(next);
+    if (!e) await setKonami();
+    if (e?.ctrlKey && e?.shiftKey) await setVeteran();
   }
 
   konami(start);

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { doc, setDoc, getDoc, getFirestore, type DocumentData } from 'firebase/firestore';
+import { doc, setDoc, getDoc, getFirestore, type DocumentData, type QueryDocumentSnapshot, type SnapshotOptions } from 'firebase/firestore';
 
 import {
     getAuth,
@@ -37,31 +37,38 @@ export async function signin(){
 
 const db = getFirestore(app);
 
-type Confirmation = {
+type Confirmation = Partial<{
     confirmed: boolean;
     timestamp: number;
-}
+    easterEgg: boolean;
+    veteran: boolean;
+    konami: boolean;
+}>
 
 const confirmationConverter = {
     toFirestore: (data: Confirmation) => data,
-    fromFirestore: (snapshot: DocumentData, options: any): Confirmation => {
-        const data = snapshot.data(options);
-        return {
-            confirmed: data.confirmed,
-            timestamp: data.timestamp
-        }
-    }
-}
+    fromFirestore: (snapshot: QueryDocumentSnapshot<Confirmation, DocumentData>, options?: SnapshotOptions): Confirmation => snapshot.data(options),
+};
+
+const getDocRef = () => !!auth.currentUser?.email && doc(db, "confirmations", auth.currentUser.email).withConverter(confirmationConverter);
 
 export async function isJoining() {
-    if (!auth.currentUser?.email) return false;
-    const docRef = doc(db, "confirmations", auth.currentUser.email).withConverter(confirmationConverter);
-    const response = await getDoc(docRef);
-    return response.exists() && response.data().confirmed;
+  const docRef = getDocRef();
+  if (!docRef) return;
+  const response = await getDoc(docRef);
+  if (response.exists()) return response.data().confirmed;
 }
 
 export async function setJoining(confirmed: boolean) {
-    if (!auth.currentUser?.email) return;
-    const docRef = doc(db, "confirmations", auth.currentUser.email).withConverter(confirmationConverter);
-    await setDoc(docRef, { confirmed, timestamp: Date.now() });
+  const docRef = getDocRef();
+  docRef && await setDoc(docRef, { confirmed, timestamp: Date.now() }, { merge: true });
 }
+
+async function setField<TKey extends keyof Confirmation>(name: TKey, value: Confirmation[TKey]) {
+  const docRef = getDocRef();
+  docRef && await setDoc(docRef, { [name]: value }, { merge: true });
+}
+
+export const setEasterEgg = () => setField("easterEgg", true);
+export const setVeteran = () => setField("veteran", true);
+export const setKonami = () => setField("konami", true);

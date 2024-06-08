@@ -2,17 +2,17 @@
 
 <script lang="ts">
   import Card from "@/components/Card.svelte";
-  import AccessDenied from "@/components/AccessDenied.svelte";
   import Layout from "@/components/Layout.svelte";
   import Main from "@/styles/Main.svelte";
   import PortalCss from "@/styles/PortalCss.svelte";
-  import { play, stop } from "@/services/sound";
+  import { play } from "@/services/sound";
   import Olivier from "@/images/olivier.jpg";
   import confetti from "canvas-confetti";
-  import { isJoining, setJoining } from "./services/firebase";
+  import { setEasterEgg, isJoining, setJoining } from "./services/firebase";
   import Button from "./components/Button.svelte";
 
   let flip = false;
+  let choices: HTMLElement;
   document.body.style.perspective = "600px";
 
   play("timeMachine");
@@ -85,6 +85,12 @@
     await play("ko", absentController.signal);
     absentController.abort();
   }
+
+  function easterEgg(){
+    choices.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    setEasterEgg();
+    join();
+  }
 </script>
 
 <Card {flip}>
@@ -92,8 +98,7 @@
     <slot />
   </svelte:fragment>
   <svelte:fragment slot="back">
-    <AccessDenied />
-    <Layout>
+    <Layout on:easterEgg={easterEgg}>
       <div class="form" data-interactive>
         <h1 class="TD_Module_HeaderA">#WvnNews - Restons connectés !</h1>
         <div class="row">
@@ -111,7 +116,7 @@
           
           Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
         </p>
-        <div class="choices">
+        <div class="choices" bind:this={choices}>
           <Button on:click={join} type="success" active={joining === true}>Présent</Button>
           <Button on:click={absent} type="danger"  active={joining === false}>Absent</Button>
         </div>

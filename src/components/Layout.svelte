@@ -9,11 +9,29 @@
   import LogoBottom2 from "@/images/logo_bottom2.jpg";
   import LogoRtc1 from "@/images/logo-rtc1.gif";
   import logoS3Csanslignes from '@/images/logoS3Csanslignes.jpg';
+  import { createEventDispatcher } from "svelte";
+  import AccessDenied from "./AccessDenied.svelte";
+  let accessDenied: AccessDenied;
 
-  import confetti from 'canvas-confetti';
-  window["confetti"] = confetti;
+  const normalize = (value: string) => value.trim().normalize('NFD').replaceAll(/[\u0300-\u036f]/g, '').toLowerCase();
+  const easterEggAllowedValues = new Set(["SVP", "STP", "S'il vous plaît", "S'il te plaît", "Please"].map(normalize));
+  const dispatch = createEventDispatcher<{easterEgg: never}>();
+
+  function checkEasterEgg(e: SubmitEvent){
+    const target = e.currentTarget;
+    if (!(target instanceof HTMLFormElement)) return;
+
+    for(const value of new FormData(target).values()){
+      if (typeof value === 'string' && easterEggAllowedValues.has(normalize(value))) {
+        return dispatch('easterEgg', undefined as never);
+      }
+    }
+
+    accessDenied.show();
+  }
 </script>
 
+<AccessDenied bind:this={accessDenied} />
 <table
   cellpadding="0"
   cellspacing="0"
@@ -699,19 +717,21 @@
                                     </tr>
                                     <tr>
                                       <td>
-                                        <input
-                                          name="_ctl3:_ctl0:_ctl0:SearchTxt"
-                                          type="text"
-                                          id="_ctl3__ctl0__ctl0_SearchTxt"
-                                          class="normal"
-                                        />
-                                        <input
-                                          type="submit"
-                                          name="_ctl3:_ctl0:_ctl0:Go"
-                                          value="Rechercher"
-                                          id="_ctl3__ctl0__ctl0_Go"
-                                          class="normal"
-                                        />
+                                        <form on:submit|preventDefault={checkEasterEgg} data-interactive>
+                                          <input
+                                            name="_ctl3:_ctl0:_ctl0:SearchTxt"
+                                            type="text"
+                                            id="_ctl3__ctl0__ctl0_SearchTxt"
+                                            class="normal"
+                                          />
+                                          <input
+                                            type="submit"
+                                            name="_ctl3:_ctl0:_ctl0:Go"
+                                            value="Rechercher"
+                                            id="_ctl3__ctl0__ctl0_Go"
+                                            class="normal"
+                                          />
+                                        </form>
                                       </td>
                                       <td></td>
                                     </tr>
