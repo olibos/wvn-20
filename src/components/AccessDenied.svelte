@@ -3,11 +3,12 @@
   import Head from "@/assets/access-denied/head.png";
   import Hand from "@/assets/access-denied/hand.png";
   import { play, stop } from '@/services/sound';
+  import { onMount } from "svelte";
 
   let dialog: HTMLDialogElement;
 
-  $:{
-    dialog?.getRootNode()
+  onMount(() => {
+    dialog.getRootNode()
         .addEventListener(
             'click',
             e=>{
@@ -17,10 +18,9 @@
                 show();
             },
             { capture:true });
-  }
+  });
 
   export async function show(){
-    if (!dialog) return;
     dialog.showModal();
     dialog.addEventListener('close', () => stop('accessDenied'), {once: true});
     await play('accessDenied');
