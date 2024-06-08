@@ -2,7 +2,8 @@
 
 <script lang="ts">
   import { konami } from "@/helpers/konami";
-  import { setKonami, setVeteran } from "@/services/firebase";
+  const setKonami = () => import("@/services/firebase").then(({setKonami}) => setKonami());
+  const setVeteran = () => import("@/services/firebase").then(({setVeteran}) => setVeteran());
 
   let button: HTMLButtonElement;
   document.body.style.perspective = "600px";  
