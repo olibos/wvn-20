@@ -21,6 +21,7 @@
   });
 
   export async function show(){
+    if (!dialog) return;
     dialog.showModal();
     dialog.addEventListener('close', () => stop('accessDenied'), {once: true});
     await play('accessDenied');
@@ -46,6 +47,11 @@
     position: relative;
     top: 0;
     left: 0;
+    @media (max-width: 767px){
+      & {
+        left: calc(100vw / 2 - 250px);
+      }
+    }
   }
 
   .nedry-body {
@@ -119,6 +125,7 @@
   
   .content {
     padding: 10px;
+    overflow: hidden;
   }
 
 </style>
