@@ -16,14 +16,13 @@
   onMount(async ()=>{
     if (hint !== 'help') return;
 
-    button.scrollIntoView({ behavior: "smooth", block: "end", inline: "end" });
-    await Promise.any([on('scrollend'), delay(1000)]);
+    await scroll(document.documentElement.scrollHeight);
     button.classList.add('highlight');
   });
   document.body.style.perspective = "600px";  
 
-  function scroll() {
-    scrollTo({ top: 0, behavior: "smooth" });
+  function scroll(top = 0) {
+    scrollTo({ top, behavior: "smooth" });
     return Promise.any([on('scrollend'), delay(1000)]);
   }
 
