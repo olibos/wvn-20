@@ -1,17 +1,30 @@
 <svelte:options customElement="wvn-drink" />
 
 <script lang="ts">
+  import { delay, on } from "@/helpers/events";
   import { konami } from "@/helpers/konami";
+  import { onMount } from "svelte";
+
+  let button: HTMLButtonElement;
   const setKonami = () => import("@/services/firebase").then(({setKonami}) => setKonami());
   const setVeteran = () => import("@/services/firebase").then(({setVeteran}) => setVeteran());
 
-  let button: HTMLButtonElement;
+  const hint = new URL(location.href).searchParams.get('drink');
+  if (typeof hint === 'string') localStorage.setItem('wvn-drink', '1');
+  const visible = !!localStorage.getItem('wvn-drink');
+
+  onMount(async ()=>{
+    if (hint !== 'help') return;
+
+    button.scrollIntoView({ behavior: "smooth", block: "end", inline: "end" });
+    await Promise.any([on('scrollend'), delay(1000)]);
+    button.classList.add('highlight');
+  });
   document.body.style.perspective = "600px";  
+
   function scroll() {
     scrollTo({ top: 0, behavior: "smooth" });
-    return new Promise((done) =>
-      addEventListener("scrollend", done, { once: true })
-    );
+    return Promise.any([on('scrollend'), delay(1000)]);
   }
 
   let started = false;
@@ -42,7 +55,9 @@
   konami(start);
 </script>
 
-<button on:click={start} bind:this={button}>π</button>
+{#if visible}
+  <button on:click={start} bind:this={button} class:highlight={false}>π</button>
+{/if}
 
 <style lang="scss">
   button {
@@ -53,9 +68,30 @@
     bottom: 0;
     cursor: pointer;
     color: #000;
+    transition: font-size 0.5s;
 
     &:global([disabled]) {
       display: none;
+    }
+
+    &.highlight {
+      font-size: 500%;
+      background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: rainbow_animation 6s ease-in-out infinite;
+      background-size: 400% 100%;
+    }
+
+    @keyframes rainbow_animation {
+      0%,100% {
+          background-position: 0 0;
+      }
+
+      50% {
+          background-position: 100% 0;
+      }
     }
 
     &:hover{

@@ -1,0 +1,2 @@
+export const on = <K extends keyof WindowEventMap>(event: K) => new Promise(ok => addEventListener(event, ok, { once: true }));
+export const delay = (time: number) => new Promise(ok => setTimeout(ok, time));
