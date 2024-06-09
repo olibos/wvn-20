@@ -16,6 +16,7 @@
   onMount(async ()=>{
     if (hint !== 'help') return;
 
+    if (document.readyState !== 'complete') await Promise.any([delay(1000), on('load')]);
     await scroll(document.documentElement.scrollHeight);
     button.classList.add('highlight');
   });
