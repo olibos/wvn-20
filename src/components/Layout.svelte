@@ -39,6 +39,7 @@
   width="1000px"
   height="100%"
   align="center"
+  class="main-table"
 >
   <tbody>
     <tr height="13px">
@@ -272,7 +273,7 @@
         >
           <tbody>
             <tr valign="top">
-              <td width="231 px" valign="top">
+              <td width="231 px" valign="top" class="left-bar">
                 <table
                   cellpadding="0"
                   cellspacing="0"
@@ -639,7 +640,7 @@
                   </tbody>
                 </table>
               </td>
-              <td width="150 px" valign="top">
+              <td width="150 px" valign="top" class="right-bar">
                 <table
                   cellpadding="0"
                   cellspacing="0"
@@ -1033,4 +1034,26 @@
   :host {
     display: block;
   }
+
+
+@media (max-width: 767px){
+  .main-table{
+    width: 100vw;
+    margin: 0;
+  }
+
+  .left-bar, .right-bar{
+    display: none;
+  }
+
+  .main-table table{
+    display: block;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .Table_Module table {
+    max-width: calc(100vw - 10px);
+  }
+}
 </style>

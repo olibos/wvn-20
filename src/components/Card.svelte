@@ -44,6 +44,15 @@
   #card.flip {
     width: 1000px;
     rotate: y 1620deg;
+    @media (max-width: 767px){
+      & {
+        width: 100vw;
+        margin:0;
+        height: unset;
+        min-height: 100vh;
+      }
+    }
+
 
     #front {
       max-height: 100vh;

@@ -173,5 +173,10 @@
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    @media (max-width: 767px){
+      & {
+        max-width: calc(100vw - 10px);
+      }
+    }
   }
 </style>
