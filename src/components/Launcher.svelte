@@ -17,7 +17,7 @@
     if (hint !== 'help') return;
 
     if (document.readyState !== 'complete') await Promise.any([delay(1000), on('load')]);
-    await scroll(document.documentElement.scrollHeight);
+    await scroll(document.documentElement.scrollHeight * 2);
     button.classList.add('highlight');
   });
   document.body.style.perspective = "600px";  
