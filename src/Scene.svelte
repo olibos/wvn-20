@@ -105,14 +105,14 @@
           <div class="column">
             <h2 class="TEXTLEVEL4">Bienvenue à Olivier BOSSAER</h2>
             <img src={Olivier} alt="" />
-            Olivier est développeut .Net.<br />
+            Olivier est développeur .Net.<br />
             Il vient renforcer l'équipe AFSCA sur le projet Sanitel.
           </div>
         </div>
         <br />
         <h1 class="TD_Module_HeaderA">🥂 Drink 🎉</h1>
         <p>
-          Pour célébrer son arrivée, il vous invite à prendre "un" verre le xx septembre (2024 😜).<br />
+          Pour célébrer son arrivée, il vous invite à prendre "un" verre le vendredi 6 septembre (2024 😜).<br />
           
           Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
         </p>
