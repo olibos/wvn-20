@@ -1037,6 +1037,14 @@
 
 
 @media (max-width: 767px){
+  tbody{
+    display: block;
+  }
+
+  tr:has(td.TD_Module_Command) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
   .main-table{
     width: 100vw;
     margin: 0;

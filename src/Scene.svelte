@@ -105,8 +105,8 @@
           <div class="column">
             <h2 class="TEXTLEVEL4">Bienvenue à Olivier BOSSAER</h2>
             <img src={Olivier} alt="" />
-            Olivier est développeut .Net. Il vient renforcer l'équipe AFSCA sur le
-            projet Sanitel.
+            Olivier est développeut .Net.<br />
+            Il vient renforcer l'équipe AFSCA sur le projet Sanitel.
           </div>
         </div>
         <br />
