@@ -99,7 +99,7 @@
   </svelte:fragment>
   <svelte:fragment slot="back">
     <Layout on:easterEgg={easterEgg}>
-      <div class="form" data-interactive>
+      <div class="form TEXTLEVEL1" data-interactive>
         <h1 class="TD_Module_HeaderA">#WvnNews - Restons connectés !</h1>
         <div class="row">
           <div class="column">
@@ -111,7 +111,7 @@
         </div>
         <br />
         <h1 class="TD_Module_HeaderA">🥂 Drink 🎉</h1>
-        <p class="TEXTLEVEL1">
+        <p>
           Pour célébrer son arrivée, il vous invite à prendre "un" verre le xx septembre (2024 😜).<br />
           
           Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
@@ -139,11 +139,15 @@
   }
 
   .column{
-    width: 50%;
+    width: 100%;
     margin: 0 auto;
+    text-align: center;
     img {
       display: block;
-      max-width: 80%;
+      max-width: min(100%, 50vw);
+      @media (min-width: 769px) {
+        max-width: 30%;
+      }
       margin: 0 auto;
     }
   }
