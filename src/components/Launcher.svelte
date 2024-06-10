@@ -16,9 +16,16 @@
   onMount(async ()=>{
     if (hint !== 'help') return;
 
-    if (document.readyState !== 'complete') await Promise.any([delay(1000), on('load')]);
-    await scroll(document.documentElement.scrollHeight * 2);
     button.classList.add('highlight');
+
+    for(let attempt = 0; attempt < 10; attempt++) {
+      const bottom = document.body.scrollHeight;
+      if (window.innerHeight + window.scrollY < bottom){
+        await scroll(bottom);
+      }
+
+      await delay(100);
+    }
   });
   document.body.style.perspective = "600px";  
 
@@ -56,7 +63,7 @@
 </script>
 
 {#if visible}
-  <button on:click={start} bind:this={button} class:highlight={false}>π</button>
+  <button on:click={start} bind:this={button}>π</button>
 {/if}
 
 <style lang="scss">
@@ -68,20 +75,33 @@
     bottom: 0;
     cursor: pointer;
     color: #000;
-    transition: font-size 0.5s;
 
     &:global([disabled]) {
       display: none;
     }
 
-    &.highlight {
+    &:global(.highlight) {
       font-size: 500%;
       background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      animation: rainbow_animation 6s ease-in-out infinite;
+      animation: rainbow_animation 6s ease-in-out infinite, resize 3s ease-in-out infinite;
       background-size: 400% 100%;
+
+      &:hover{
+        font-weight: normal;
+      }
+    }
+
+    @keyframes resize {
+      0%,100% {
+          font-size: 300%;
+      }
+
+      50% {
+          font-size: 600%;
+      }
     }
 
     @keyframes rainbow_animation {
