@@ -1037,7 +1037,7 @@
 
 
 @media (max-width: 767px){
-  tbody{
+  tbody, td.COPYRIGHT, tr:has(td.COPYRIGHT){
     display: block;
   }
 
