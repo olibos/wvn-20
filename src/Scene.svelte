@@ -16,7 +16,7 @@
   document.body.style.perspective = "600px";
 
   play("timeMachine");
-  requestIdleCallback(() => (flip = true));
+  setTimeout(() => (flip = true), 0);
 
   let joinController: AbortController, absentController: AbortController;
   let joining:boolean|undefined = undefined;

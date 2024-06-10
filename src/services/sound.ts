@@ -58,7 +58,12 @@ export function play(sound: keyof typeof ressources, signal?: AbortSignal): Prom
     signal?.addEventListener('abort', end);
     audio.addEventListener('ended', end);
     audio.addEventListener('pause', end);
-    audio.play();
+    try{
+        audio.play();
+    }catch{
+        // unable to play sound.
+        resolve();
+    }
     return promise;
 }
 
