@@ -82,12 +82,7 @@
 
     &:global(.highlight) {
       font-size: 500%;
-      background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: rainbow_animation 6s ease-in-out infinite, resize 3s ease-in-out infinite;
-      background-size: 400% 100%;
+      animation: rainbow_animation 4s ease-in-out infinite, resize 3s ease-in-out infinite;
 
       &:hover{
         font-weight: normal;
@@ -105,12 +100,44 @@
     }
 
     @keyframes rainbow_animation {
-      0%,100% {
-          background-position: 0 0;
+      0% {
+        color:#6666ff;
       }
 
-      50% {
-          background-position: 100% 0;
+      25% {
+        color: #0099ff;
+      }
+
+      50%{
+        color: #00ff00;
+      }
+
+      75%{
+        color: #ff3399;
+      }
+
+      100%{
+        color: #6666ff;
+      }
+    }
+
+    @supports (-webkit-background-clip: text) or (background-clip: text) {
+      &:global(.highlight) {
+        background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 400% 100%;
+      }
+
+      @keyframes rainbow_animation {
+        0%,100% {
+            background-position: 0 0;
+        }
+
+        50% {
+            background-position: 100% 0;
+        }
       }
     }
 
