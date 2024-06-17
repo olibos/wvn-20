@@ -10,6 +10,7 @@
   import confetti from "canvas-confetti";
   import { setEasterEgg, isJoining, setJoining } from "./services/firebase";
   import Button from "./components/Button.svelte";
+  import HighlightBox from "./components/HighlightBox.svelte";
 
   let flip = false;
   let choices: HTMLElement;
@@ -99,28 +100,30 @@
   </svelte:fragment>
   <svelte:fragment slot="back">
     <Layout on:easterEgg={easterEgg}>
-      <div class="form TEXTLEVEL1" data-interactive>
-        <h1 class="TD_Module_HeaderA">#WvnNews - Restons connectés !</h1>
-        <div class="row">
-          <div class="column">
-            <h2 class="TEXTLEVEL4">Bienvenue à Olivier BOSSAER</h2>
-            <img src={Olivier} alt="" />
-            Olivier est développeur .Net.<br />
-            Il vient renforcer l'équipe AFSCA sur le projet Sanitel.
+      <HighlightBox>
+        <div class="form TEXTLEVEL1" data-interactive>
+          <h1 class="TD_Module_HeaderA">#WvnNews - Restons connectés !</h1>
+          <div class="row">
+            <div class="column">
+              <h2 class="TEXTLEVEL4">Bienvenue à Olivier BOSSAER</h2>
+              <img src={Olivier} alt="" />
+              Olivier est développeur .Net.<br />
+              Il vient renforcer l'équipe AFSCA sur le projet Sanitel.
+            </div>
+          </div>
+          <br />
+          <h1 class="TD_Module_HeaderA">🥂 Drink: <i>6 Septembre 2024</i> 🎉</h1>
+          <p>
+            Pour célébrer son arrivée, il vous invite à prendre "un" verre le vendredi 6 septembre (2024 😜).<br />
+            
+            Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
+          </p>
+          <div class="choices" bind:this={choices}>
+            <Button type="success" on:click={join} active={joining === true}>Présent</Button>
+            <Button type="danger" on:click={absent} active={joining === false}>Absent</Button>
           </div>
         </div>
-        <br />
-        <h1 class="TD_Module_HeaderA">🥂 Drink 🎉</h1>
-        <p>
-          Pour célébrer son arrivée, il vous invite à prendre "un" verre le vendredi 6 septembre (2024 😜).<br />
-          
-          Afin d'assurer le ravitaillement en suffisance merci de confirmer votre présence ou non via les boutons ci-dessous. 
-        </p>
-        <div class="choices" bind:this={choices}>
-          <Button on:click={join} type="success" active={joining === true}>Présent</Button>
-          <Button on:click={absent} type="danger"  active={joining === false}>Absent</Button>
-        </div>
-      </div>
+      </HighlightBox>
     </Layout>
     <!-- styles -->
     <Main />
@@ -132,10 +135,6 @@
   :host {
     overflow-x: hidden;
     overflow-y: auto;
-  }
-  .form {
-    border-bottom: #0071bc 1px groove;
-    min-height: 500px;
   }
 
   .column{
@@ -151,36 +150,8 @@
       margin: 0 auto;
     }
   }
-  // .row {
-  //   display: grid;
-  //   grid-template-columns: 1fr 1fr;
-  // }
-
-  // .column {
-  //   img {
-  //     display: block;
-  //     max-width: 80%;
-  //     margin: 0 auto;
-  //   }
-  // }
 
   .choices{
     text-align: center;
-    background-color: #C1CADB;
-    border-radius: 10px;
-    --color-white: #fff;
-    --color-1: #350048;
-    --color-2: rgba(255, 255, 255, 0.05);
-    --color-3: rgba(0, 0, 0, 0.2);
-    --color-4: rgba(255, 255, 255, 0.1);
-    --color-gradient-1: rgba(255,255,255, 0.15);
-    display: flex;
-    justify-content: center;
-    margin-bottom: 10px;
-    @media (max-width: 767px){
-      & {
-        max-width: calc(100vw - 10px);
-      }
-    }
   }
 </style>
