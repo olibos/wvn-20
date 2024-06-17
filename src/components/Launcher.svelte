@@ -38,7 +38,13 @@
   async function start(e?: MouseEvent) {
     button.disabled = true;
     const { signin } = await import("@/services/firebase");
-    if (!await signin()) {
+    try {
+      if (!await signin()) {
+        button.disabled = false;
+        return;
+      }
+    } catch(err) {
+      alert('Le support de Safari est expérimental...\nVeuillez re-cliquer sur "π" pour continuer 😅');
       button.disabled = false;
       return;
     }
