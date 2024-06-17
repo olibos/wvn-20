@@ -17,8 +17,12 @@
   border-radius: var(--border-width);
   isolation: isolate;
 
-  .TEXTLEVEL1, p{
+  :global(.TEXTLEVEL1), :global(p){
     font-size: 1.5rem;
+  }
+
+  :global(.TEXTLEVEL4){
+    font-size: 2rem;
   }
 
   &::before {
@@ -50,6 +54,7 @@
 .content{
     padding:5px;
     background: #fff;
+    border-radius: var(--border-width);
 }
 
 @keyframes moveGradient {
