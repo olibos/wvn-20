@@ -26,7 +26,7 @@
     if (joinController && !joinController.signal.aborted) return;
     joinController = new AbortController();
     absentController?.abort();
-    setJoining(true);
+    await setJoining(true);
     joining = true;
 
     (function frame() {
@@ -56,7 +56,7 @@
     if (absentController && !absentController.signal.aborted) return;
     absentController = new AbortController();
     joinController?.abort();
-    setJoining(false);
+    await setJoining(false);
     joining = false;
     const randomInRange = (min: number, max: number) =>
       Math.random() * (max - min) + min;
