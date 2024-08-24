@@ -52,6 +52,19 @@ const confirmationConverter = {
 
 const getDocRef = () => !!auth.currentUser?.email && doc(db, "confirmations", auth.currentUser.email).withConverter(confirmationConverter);
 
+export async function ensureSignedIn() {
+  if (auth.currentUser) return;
+
+  try{
+    if (await signin()) return;
+  }catch(error){
+    console.log(error);
+  }
+  
+  alert("Malheureusement, je n'ai pas pu vous identifier.\nRéessayer avec votre compte Wavenet et si le problème persiste envoyez moi un petit mail 😉.");
+  throw new Error("Not signed in");
+}
+
 export async function isJoining() {
   const docRef = getDocRef();
   if (!docRef) return;
@@ -60,6 +73,7 @@ export async function isJoining() {
 }
 
 export async function setJoining(confirmed: boolean) {
+  await ensureSignedIn();
   const docRef = getDocRef();
   docRef && await setDoc(docRef, { confirmed, timestamp: Date.now() }, { merge: true });
 }

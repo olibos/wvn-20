@@ -13,9 +13,7 @@
   if (typeof hint === 'string') localStorage.setItem('wvn-drink', '1');
   const visible = !!localStorage.getItem('wvn-drink');
 
-  onMount(async ()=>{
-    if (hint !== 'help') return;
-
+  async function highlight(){
     button.classList.add('highlight');
 
     for(let attempt = 0; attempt < 10; attempt++) {
@@ -26,6 +24,29 @@
 
       await delay(100);
     }
+  }
+
+  async function confirmation(){
+    const { signin } = await import("@/services/firebase");
+    try {
+      // try authentication without user interaction.
+      if (!await signin()) return;
+    } catch(err) {
+    }
+
+    await animate();
+  }
+  
+  onMount(async ()=>{
+    switch (hint) {
+      case 'help':
+        await highlight();
+        break;
+
+      case 'confirmation':
+        confirmation();
+        break;
+    } 
   });
   document.body.style.perspective = "600px";  
 
@@ -35,6 +56,21 @@
   }
 
   let started = false;
+  async function animate() {
+      const next = document.getElementById("__next");
+      if (started || !next || document.querySelector("wvn-legacy")) return;
+      await import("../Scene.svelte");
+      if (screenTop) await scroll();
+      if (started) return;
+      started = true;
+  
+      const boxSizing = window.getComputedStyle(next).boxSizing;
+      next.style.boxSizing = boxSizing;
+      const card = document.createElement("wvn-legacy");
+      next.replaceWith(card);
+      card.appendChild(next);
+  }
+
   async function start(e?: MouseEvent) {
     button.disabled = true;
     const { signin } = await import("@/services/firebase");
@@ -49,18 +85,7 @@
       return;
     }
 
-    const next = document.getElementById("__next");
-    if (started || !next || document.querySelector("wvn-legacy")) return;
-    await import("../Scene.svelte");
-    if (screenTop) await scroll();
-    if (started) return;
-    started = true;
-
-    const boxSizing = window.getComputedStyle(next).boxSizing;
-    next.style.boxSizing = boxSizing;
-    const card = document.createElement("wvn-legacy");
-    next.replaceWith(card);
-    card.appendChild(next);
+    await animate();
     if (!e) await setKonami();
     if (e?.ctrlKey && e?.shiftKey) await setVeteran();
   }
